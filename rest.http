@@ -1,0 +1,22 @@
+###  Yser sign up endpoint
+POST http://localhost:3001/v1/user
+Content-Type: application/json
+
+{
+"name":"Manish yadav",
+"company":"Company name",
+"address":"Some address Sydney",
+"phone":"7106151901",
+"email":"m@gmail.com",
+"password":"manish26"
+
+}
+
+###  Yser sign in endpoint
+POST http://localhost:3001/v1/user/login
+Content-Type: application/json
+
+{
+"email":"m@gmail.com",
+"password":"manish26"
+}

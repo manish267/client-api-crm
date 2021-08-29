@@ -8,7 +8,7 @@ require('dotenv').config();
 const mongoose=require('mongoose');
 
 // API security
-app.use(helmet());
+// app.use(helmet());
 
 // handle CORS error
 app.use(cors());
