@@ -1,7 +1,8 @@
 const redis = require("redis");
-const client = redis.createClient();
+const client = redis.createClient(process.env.REDIS_URL);
 
-// redis ://localhost:6379
+// redis://localhost:6379
+
 const setJWT = (key, value) => {
   return new Promise((resolve,
     reject) => {
