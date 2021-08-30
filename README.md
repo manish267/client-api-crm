@@ -1,6 +1,6 @@
 # CRM Client side API
 
-This api is a part of create CRM Ticket system with MERN stack 
+This api is a part of CRM Ticket system with MERN stack 
 
 ## How to use
 
