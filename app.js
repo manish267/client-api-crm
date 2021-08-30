@@ -40,11 +40,13 @@ const port = process.env.PORT || 3001;
 // Load routers
 const userRouter = require("./src/routers/user.router.js");
 const ticketRouter = require("./src/routers/ticket.router.js");
+const tokensRouter = require("./src/routers/tokens.router.js");
 
 // Use Routers
 
 app.use("/v1/user", userRouter);
 app.use("/v1/ticket", ticketRouter);
+app.use("/v1/tokens", tokensRouter);
 
 // Error Handler
 
