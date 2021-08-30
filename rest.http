@@ -12,7 +12,7 @@ Content-Type: application/json
 
 }
 
-###  Yser sign in endpoint
+###  User sign in endpoint
 POST http://localhost:3001/v1/user/login
 Content-Type: application/json
 
@@ -20,3 +20,8 @@ Content-Type: application/json
 "email":"m@gmail.com",
 "password":"manish26"
 }
+
+
+###  Get a user profile endpoint
+GET http://localhost:3001/v1/user
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1AZ21haWwuY29tIiwiaWF0IjoxNjMwMzAyNzE2LCJleHAiOjE2MzAzMDM2MTZ9.ymR-qN9JBzxD2LGx_Dlw2UifcU_5twxGwDNaSGL3U7g
