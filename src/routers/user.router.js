@@ -5,6 +5,7 @@ const router = express.Router();
 const { insertUser,getUserByEmail,getUserById } = require("../model/user/User.model");
 const { hashPassword,comparePassword } = require("./../helpers/bcrypt.helper");
 const {userAuthorization}=require("./../middlewares/authorization.middleware");
+const {setPasswordResetPin} =require('../model/resetPin/ResetPin.model')
 
 
 router.all("/", (req, res, next) => {
@@ -81,7 +82,35 @@ router.post('/login',async (req,res,next)=>{
   res.json({status:"Success",message:"Login Successfully",accessJWT,refreshJWT})
 })
 
+// A. Create and send password reset pin number
+  // 1.receive email
+  // 2. check if user exist
+  // 3.create 6 digit pin
+  // 4.save pin and email in database
+  
+// B. update password in DB
+  // 1.receive email,pin and new password
+  // 2.validate pin
+  // 3.encrypt new password
+  // 4.update password in db
+  // 5.send email notification
 
+//C. server side form validation 
+  // 1.create middleware to validate form data
+
+router.post("/reset-password",async(req,res)=>{
+  const {email}=req.body;
+
+    const user =await getUserByEmail(email);
+
+    if(user && user._id){
+      // create unique 6 digit pin
+      const setPin =await setPasswordResetPin(email);
+      return res.json(setPin);
+    }
+
+    res.json({status:"error",message:"If the email is exist in our database ,the password reset pin will be send shortly"});
+})
 
 
 

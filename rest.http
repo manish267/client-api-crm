@@ -32,3 +32,11 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1AZ21haWwuY29t
 ### Get refreshed token
 GET http://localhost:3001/v1/tokens
 Authorization:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1AZ21haWwuY29tIiwiaWF0IjoxNjMwMzA2MzA1LCJleHAiOjE2MzI4OTgzMDV9.erhTlSMrbgDMxBcYC0kwVSLW-wY5o3dtnKvgfxQyp_0
+
+### password reset endpoint
+POST http://localhost:3001/v1/user/reset-password
+Content-Type: application/json
+
+{
+    "email":"m@gmail.com"
+}
