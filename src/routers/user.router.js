@@ -7,18 +7,23 @@ const {
   getUserByEmail,
   getUserById,
   updatePassword,
+  storeUserRefreshJWT
 } = require("../model/user/User.model");
 const { hashPassword, comparePassword } = require("./../helpers/bcrypt.helper");
 const {
-  userAuthorization,
+  userAuthorization, 
 } = require("./../middlewares/authorization.middleware");
 const {
   setPasswordResetPin,
-  getPinByEmailPin,
+  getPinByEmailPin, 
   deletePin,
 } = require("../model/resetPin/ResetPin.model");
 const { emailProcessor } = require("../helpers/email.helper");
-const {resetPassReqValidation,updatePassValidation}=require('../middlewares/formValidation.middleware')
+const {
+  resetPassReqValidation,
+  updatePassValidation,
+} = require("../middlewares/formValidation.middleware");
+const {deleteJWT}=require('./../helpers/redis.helper')
 
 router.all("/", (req, res, next) => {
   // console.log(name)
@@ -104,7 +109,7 @@ router.post("/login", async (req, res, next) => {
 //C. server side form validation
 // 1.create middleware to validate form data
 
-router.post("/reset-password",resetPassReqValidation, async (req, res) => {
+router.post("/reset-password", resetPassReqValidation, async (req, res) => {
   const { email } = req.body;
 
   const user = await getUserByEmail(email);
@@ -139,41 +144,63 @@ router.post("/reset-password",resetPassReqValidation, async (req, res) => {
 // 4.update password in db
 // 5.send email notification
 
-router.patch("/reset-password",updatePassValidation, async (req, res, next) => {
-  const { email, pin, newPassword } = req.body;
+router.patch(
+  "/reset-password",
+  updatePassValidation,
+  async (req, res, next) => {
+    const { email, pin, newPassword } = req.body;
 
-  const getPin = await getPinByEmailPin(email, pin);
+    const getPin = await getPinByEmailPin(email, pin);
 
-  if (getPin._id) {
-    const dbDate = getPin.addedAt;
-    const expiresIn = 1;
-    let expDate = dbDate.setDate(dbDate.getDate() + expiresIn);
+    if (getPin._id) {
+      const dbDate = getPin.addedAt;
+      const expiresIn = 1;
+      let expDate = dbDate.setDate(dbDate.getDate() + expiresIn);
 
-    const today = new Date();
-    if (today > expDate) {
-      return res.json({ status: "error", message: "invalid or expired pin" });
-    }
-    // encrypt the new password
-    const hashedPass = await hashPassword(newPassword);
+      const today = new Date();
+      if (today > expDate) {
+        return res.json({ status: "error", message: "invalid or expired pin" });
+      }
+      // encrypt the new password
+      const hashedPass = await hashPassword(newPassword);
 
-    const user = await updatePassword(email, hashedPass);
-    if (user._id) {
-      // 5.send email notification
-      await emailProcessor(email, "", "passwrod-update-success");
-      // delete pin from db
-      deletePin(email, pin);
-      return res.json({
-        status: "success",
-        message: "Your password has been updated",
+      const user = await updatePassword(email, hashedPass);
+      if (user._id) {
+        // 5.send email notification
+        await emailProcessor(email, "", "passwrod-update-success");
+        // delete pin from db
+        deletePin(email, pin);
+        return res.json({
+          status: "success",
+          message: "Your password has been updated",
+        });
+      }
+      res.json({
+        status: "error",
+        message: "Unable to update your password .plz try again later",
       });
     }
-    res.json({
-      status: "error",
-      message: "Unable to update your password .plz try again later",
-    });
-  }
 
-  res.json(getPin);
-});
+    res.json(getPin);
+  }
+);
+
+// User logout and invalidate jwts
+
+router.delete('/logout',userAuthorization,async (req,res)=>{
+  // 1.get jwt and verify
+  const {authorization}=req.headers;
+  // this data coming form database;
+  const _id=req.userId;
+// 2.delete accessJWT from redis database
+  deleteJWT(authorization);
+// 3.delete refreshJWT from mongodb
+const result=await storeUserRefreshJWT(_id,"");
+if(result._id){
+  return res.json({status:"success",message:"Logged out successfully"})
+}
+ res.json({status:"error",message:"Unable to log you out,plz try again later"})
+
+})
 
 module.exports = router;

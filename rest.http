@@ -50,3 +50,7 @@ Content-Type: application/json
     "pin":"628799",
     "newPassword":"manish26"
 }
+
+###user logout endpoint
+DELETE http://localhost:3001/v1/user/logout
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1AZ21haWwuY29tIiwiaWF0IjoxNjMwNDc2MjUwLCJleHAiOjE2MzA0NzcxNTB9.CkQR7SOlklemR_jLFNvDbjGc5myXeie1exJZitsBN48
