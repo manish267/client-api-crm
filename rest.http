@@ -40,3 +40,13 @@ Content-Type: application/json
 {
     "email":"m@gmail.com"
 }
+
+### password new password endpoint
+PATCH http://localhost:3001/v1/user/reset-password
+Content-Type: application/json
+
+{
+    "email":"m@gmail.com",
+    "pin":"041598",
+    "newPassword":"manish26@"
+}
