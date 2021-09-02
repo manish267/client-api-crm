@@ -24,7 +24,7 @@ Content-Type: application/json
 
 ###  Get a user profile endpoint
 GET http://localhost:3001/v1/user
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1AZ21haWwuY29tIiwiaWF0IjoxNjMwMzAyNzE2LCJleHAiOjE2MzAzMDM2MTZ9.ymR-qN9JBzxD2LGx_Dlw2UifcU_5twxGwDNaSGL3U7g
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1AZ21haWwuY29tIiwiaWF0IjoxNjMwNTYxNDQwLCJleHAiOjE2MzA1NjIzNDB9.w5xswTL5Jmwej4NBEXsnnCMYxkrSIDun9nnOogUcJC4
 
 ### token routers
 
@@ -53,4 +53,14 @@ Content-Type: application/json
 
 ###user logout endpoint
 DELETE http://localhost:3001/v1/user/logout
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1AZ21haWwuY29tIiwiaWF0IjoxNjMwNDc2MjUwLCJleHAiOjE2MzA0NzcxNTB9.CkQR7SOlklemR_jLFNvDbjGc5myXeie1exJZitsBN48
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1AZ21haWwuY29tIiwiaWF0IjoxNjMwNDc2NDI1LCJleHAiOjE2MzA0NzczMjV9.65Jt5OIAp3_Fcfe_hQFbJc_eplQ3NbvTjZduV5rHq4w
+
+### To create new ticket
+POST http://localhost:3001/v1/ticket
+Content-Type: application/json
+
+{
+    "subject":"form issue",
+    "sender":"Manish",
+    "message":"Contact form not working. please fix it as soon as possible"
+}
