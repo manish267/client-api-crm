@@ -24,14 +24,14 @@ Content-Type: application/json
 
 ###  Get a user profile endpoint
 GET http://localhost:3001/v1/user
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1AZ21haWwuY29tIiwiaWF0IjoxNjMwNTYxNDQwLCJleHAiOjE2MzA1NjIzNDB9.w5xswTL5Jmwej4NBEXsnnCMYxkrSIDun9nnOogUcJC4
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1AZ21haWwuY29tIiwiaWF0IjoxNjMwNTY1NDE3LCJleHAiOjE2MzMxNTc0MTd9.PwG3sNrCaOSrZzJ2pyx3dMhQqSmnogcJwGWQBksU0wo
 
 ### token routers
 
 
 ### Get refreshed token
 GET http://localhost:3001/v1/tokens
-Authorization:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1AZ21haWwuY29tIiwiaWF0IjoxNjMwMzA2MzA1LCJleHAiOjE2MzI4OTgzMDV9.erhTlSMrbgDMxBcYC0kwVSLW-wY5o3dtnKvgfxQyp_0
+Authorization:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1AZ21haWwuY29tIiwiaWF0IjoxNjMwNTY1NDE3LCJleHAiOjE2MzMxNTc0MTd9.PwG3sNrCaOSrZzJ2pyx3dMhQqSmnogcJwGWQBksU0wo
 
 ### password reset endpoint
 POST http://localhost:3001/v1/user/reset-password
@@ -53,14 +53,24 @@ Content-Type: application/json
 
 ###user logout endpoint
 DELETE http://localhost:3001/v1/user/logout
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1AZ21haWwuY29tIiwiaWF0IjoxNjMwNDc2NDI1LCJleHAiOjE2MzA0NzczMjV9.65Jt5OIAp3_Fcfe_hQFbJc_eplQ3NbvTjZduV5rHq4w
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1AZ21haWwuY29tIiwiaWF0IjoxNjMwNTY1NDE3LCJleHAiOjE2MzMxNTc0MTd9.PwG3sNrCaOSrZzJ2pyx3dMhQqSmnogcJwGWQBksU0wo
 
 ### To create new ticket
 POST http://localhost:3001/v1/ticket
 Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1AZ21haWwuY29tIiwiaWF0IjoxNjMwNTY1NDE3LCJleHAiOjE2MzMxNTc0MTd9.PwG3sNrCaOSrZzJ2pyx3dMhQqSmnogcJwGWQBksU0wo
 
 {
     "subject":"form issue",
     "sender":"Manish",
     "message":"Contact form not working. please fix it as soon as possible"
 }
+
+### Get all tickets of specific user
+GET http://localhost:3001/v1/ticket
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1AZ21haWwuY29tIiwiaWF0IjoxNjMwNTY1NDE3LCJleHAiOjE2MzMxNTc0MTd9.PwG3sNrCaOSrZzJ2pyx3dMhQqSmnogcJwGWQBksU0wo
+
+### Get a specific ticket
+GET http://localhost:3001/v1/ticket/61306e99a22dcffc8f46117b
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1AZ21haWwuY29tIiwiaWF0IjoxNjMwNTY1NDE3LCJleHAiOjE2MzMxNTc0MTd9.PwG3sNrCaOSrZzJ2pyx3dMhQqSmnogcJwGWQBksU0wo
+
