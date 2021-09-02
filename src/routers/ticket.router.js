@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { insestTicket,getTickets,getTicketById } = require("./../model/ticket/Ticket.model");
+const { insestTicket,getTickets,getTicketById,updateClientReply,updateStatusClose} = require("./../model/ticket/Ticket.model");
 const {
   userAuthorization,
 } = require("./../middlewares/authorization.middleware");
@@ -92,19 +92,67 @@ router.get("/:_id", userAuthorization, async (req, res) => {
       const result = await getTicketById(_id,clientId);
       console.log(result);
 
-      if (result.length) {
-        return res.json({
+      if (result._id) {
+         res.json({
           status: "success",
           result,
         });
       }    
     } catch (error) {
-      return res.json({
+       res.json({
         status: "error",
         message: error.message,
       });
     }
   });
 
+//   update ticket ie. reply message from client 
+router.put("/:_id", userAuthorization, async (req, res) => {
+    try {
+        const {_id}=req.params;
+        const {message,sender}=req.body;
+      // Insert in mongodb
+      const result = await updateClientReply({_id,message,sender});
+      console.log(result);
+
+      if (result._id) {
+         return res.json({
+          status: "success",
+          result,
+        });
+      }    
+      res.json({status:"error",message:"Unable to update your message. please try again later"})
+    } catch (error) {
+       res.json({
+        status: "error",
+        message: error.message,
+      });
+    }
+  });
+
+//  update ticket status to close
+
+router.patch("/close-ticket/:_id", userAuthorization, async (req, res) => {
+    try {
+        const {_id}=req.params;
+        const clientId=req.userId;
+      // Insert in mongodb
+      const result = await updateStatusClose({_id,clientId});
+      console.log(result);
+
+      if (result._id) {
+         return res.json({
+          status: "success",
+          message:"The ticket has been closed"
+        });
+      }    
+      res.json({status:"error",message:"Unable to update your message."})
+    } catch (error) {
+       res.json({
+        status: "error",
+        message: error.message,
+      });
+    }
+  });
 
 module.exports = router;
