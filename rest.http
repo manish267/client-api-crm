@@ -61,9 +61,9 @@ Content-Type: application/json
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1AZ21haWwuY29tIiwiaWF0IjoxNjMwNTY1NDE3LCJleHAiOjE2MzMxNTc0MTd9.PwG3sNrCaOSrZzJ2pyx3dMhQqSmnogcJwGWQBksU0wo
 
 {
-    "subject":"form issue",
+    "subject":"Product related",
     "sender":"Manish",
-    "message":"Contact form not working. please fix it as soon as possible"
+    "message":"My product is not working properly"
 }
 
 ### Get all tickets of specific user
@@ -74,3 +74,23 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1AZ21haWwuY29t
 GET http://localhost:3001/v1/ticket/61306e99a22dcffc8f46117b
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1AZ21haWwuY29tIiwiaWF0IjoxNjMwNTY1NDE3LCJleHAiOjE2MzMxNTc0MTd9.PwG3sNrCaOSrZzJ2pyx3dMhQqSmnogcJwGWQBksU0wo
 
+### Update ticket reply
+PUT http://localhost:3001/v1/ticket/61306e99a22dcffc8f46117b
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1AZ21haWwuY29tIiwiaWF0IjoxNjMwNTY1NDE3LCJleHAiOjE2MzMxNTc0MTd9.PwG3sNrCaOSrZzJ2pyx3dMhQqSmnogcJwGWQBksU0wo
+
+{
+    "sender":"admin",
+    "message":"We are working hard on this"
+    
+}
+
+
+### update ticket status to close
+PATCH  http://localhost:3001/v1/ticket/close-ticket/61306e99a22dcffc8f46117b
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1AZ21haWwuY29tIiwiaWF0IjoxNjMwNTY1NDE3LCJleHAiOjE2MzMxNTc0MTd9.PwG3sNrCaOSrZzJ2pyx3dMhQqSmnogcJwGWQBksU0wo
+
+
+### delete a ticket
+DELETE  http://localhost:3001/v1/ticket/6130c0d0fc0edfdd54ab7fc3
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1AZ21haWwuY29tIiwiaWF0IjoxNjMwNTY1NDE3LCJleHAiOjE2MzMxNTc0MTd9.PwG3sNrCaOSrZzJ2pyx3dMhQqSmnogcJwGWQBksU0wo

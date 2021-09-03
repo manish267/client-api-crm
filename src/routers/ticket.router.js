@@ -1,9 +1,10 @@
 const express = require("express");
 const router = express.Router();
-const { insestTicket,getTickets,getTicketById,updateClientReply,updateStatusClose} = require("./../model/ticket/Ticket.model");
+const { insestTicket,getTickets,getTicketById,updateClientReply,updateStatusClose,deleteTicket} = require("./../model/ticket/Ticket.model");
 const {
   userAuthorization,
 } = require("./../middlewares/authorization.middleware");
+const {createNewTicketValidation,replyTicketMessageValidation}=require('./../middlewares/formValidation.middleware')
 
 // Workflow
 // create url endpoints
@@ -21,7 +22,7 @@ router.all("/", (req, res, next) => {
 
 
 // create new ticket endpoints
-router.post("/", userAuthorization, async (req, res) => {
+router.post("/",createNewTicketValidation, userAuthorization, async (req, res) => {
   try {
     // receive new ticket data
     const { subject, sender, message } = req.body;
@@ -107,7 +108,7 @@ router.get("/:_id", userAuthorization, async (req, res) => {
   });
 
 //   update ticket ie. reply message from client 
-router.put("/:_id", userAuthorization, async (req, res) => {
+router.put("/:_id",replyTicketMessageValidation, userAuthorization, async (req, res) => {
     try {
         const {_id}=req.params;
         const {message,sender}=req.body;
@@ -132,7 +133,7 @@ router.put("/:_id", userAuthorization, async (req, res) => {
 
 //  update ticket status to close
 
-router.patch("/close-ticket/:_id", userAuthorization, async (req, res) => {
+router.patch("/close-ticket/:_id", userAuthorization,async (req, res) => {
     try {
         const {_id}=req.params;
         const clientId=req.userId;
@@ -151,6 +152,33 @@ router.patch("/close-ticket/:_id", userAuthorization, async (req, res) => {
        res.json({
         status: "error",
         message: error.message,
+      });
+    }
+  });
+
+//   delete a ticket
+
+router.delete("/:_id", userAuthorization, async (req, res) => {
+    try {
+        const {_id}=req.params;
+        const clientId=req.userId;
+      // Insert in mongodb
+      const result = await deleteTicket({_id,clientId});
+      console.log(result);
+
+      if(result===null){
+          throw new Error();
+      }
+
+         return res.json({
+          status: "success",
+          message:"The ticket has been deleted"
+        });
+     
+    } catch (error) {
+       res.json({
+        status: "error",
+        message: "Unable to delete ticket",
       });
     }
   });

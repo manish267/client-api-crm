@@ -76,6 +76,20 @@ const updateStatusClose=({_id,clientId})=>{
         }
 
     })
+}
+
+const deleteTicket=({_id,clientId})=>{
+
+    return new Promise((resolve,reject)=>{
+        try {
+            TicketSchema.findOneAndRemove({_id,clientId}).then(data=>{
+                resolve(data);
+            }).catch(error=> reject(error));
+        } catch (error) {
+            reject(error);
+        }
+
+    })
 
 }
 
@@ -84,5 +98,6 @@ module.exports={
     getTickets,
     getTicketById,
     updateClientReply,
-    updateStatusClose
+    updateStatusClose,
+    deleteTicket
 }
